@@ -2,9 +2,10 @@
 #include <cmath>
 #include <random>
 
-
+using std::cout;
+using std::endl;
 //set parameters
-#define NUMBER_OF_ATOMS 500
+#define NUMBER_OF_ATOMS 10000
 const static int NUMBER_OF_CONFIGURATIONS = 15;
 const static double box_length = 500;
 const static double sigma = 1.; //distance at which inter-particle potential is zero
@@ -29,7 +30,7 @@ double LJ_energy (const Atom& atom1, const Atom& atom2)
 }
 
 //total energy between a list of atoms
-double total_energy(Atom atoms [NUMBER_OF_ATOMS])
+double total_energy(Atom (&atoms) [NUMBER_OF_ATOMS])
 {
   double energy = 0;
   for(int i=0; i < NUMBER_OF_ATOMS; i++){
@@ -63,6 +64,6 @@ int main(){
 
   double test_total_energy = total_energy(atoms);
 
-  std:: cout << test_total_energy;
+  cout << test_total_energy << endl;
   return 0;
 }
