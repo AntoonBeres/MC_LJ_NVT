@@ -1,0 +1,33 @@
+Tests ran on initial version with all LJ-atoms interacting. Tested for different compilers with different optimization settings on the "add_timer" branch
+
+TEST1 initial test
+
+with g++:
+
+g++ -o main main.cpp
+initializing atoms took 3787microseconds
+Calculation took 4525ms
+
+g++ -O3 -o main main.cpp
+initializing atoms took 1326microseconds
+Calculation took 1245ms
+
+with Clang++
+
+clang++ -o main main.cpp
+initializing atoms took 8990microseconds
+Calculation took 4438ms
+
+clang++ -O3 -o main main.cpp
+initializing atoms took 5459microseconds
+Calculation took 1086ms
+
+
+
+Conclusions:
+
+G++ initializes the array of atoms faster than c-lang even when g++ is used without optimization and c-lang with.
+Clang performs the  main calculations faster.
+-O3 optimization gives clear significant performance gains.
+
+
