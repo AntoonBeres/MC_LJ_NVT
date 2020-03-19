@@ -1,11 +1,15 @@
 #include <iostream>
 #include <cmath>
 #include <random>
+#include <chrono>
 
 using std::cout;
 using std::endl;
+using std::chrono::microseconds;
+using std::chrono::milliseconds;
+using Clock = std::chrono::high_resolution_clock;
 //set parameters
-#define NUMBER_OF_ATOMS 10000
+#define NUMBER_OF_ATOMS 5000
 const static int NUMBER_OF_CONFIGURATIONS = 15;
 const static double box_length = 500;
 const static double sigma = 1.; //distance at which inter-particle potential is zero
@@ -55,15 +59,23 @@ int main(){
   rng.seed(446464); //set RNG seed
 
   // initialize atoms in box
+  auto start = Clock::now();
   Atom atoms [NUMBER_OF_ATOMS];
   for (int i=0; i < NUMBER_OF_ATOMS; i++){
     atoms[i].x = dist(rng);
     atoms[i].y = dist(rng);
     atoms[i].z = dist(rng);
   }
+  auto end = Clock::now();
+  auto duration = std::chrono::duration_cast<microseconds>(end -start);
+  cout << "initializing atoms took " << duration.count() << "microseconds" << endl;
 
+
+  start = Clock::now();
   double test_total_energy = total_energy(atoms);
-
+  end = Clock::now();
+  auto duration_ms = std::chrono::duration_cast<milliseconds>(end-start);
+  cout << "Calculation took " << duration_ms.count()<< "ms" << endl;
   cout << test_total_energy << endl;
   return 0;
 }
