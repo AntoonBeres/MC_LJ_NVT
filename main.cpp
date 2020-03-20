@@ -2,6 +2,7 @@
 #include <cmath>
 #include <random>
 #include <chrono>
+#include <thread>
 
 using std::cout;
 using std::endl;
@@ -10,7 +11,8 @@ using std::chrono::milliseconds;
 using Clock = std::chrono::high_resolution_clock;
 //set parameters
 #define NUMBER_OF_ATOMS 5000
-const static int NUMBER_OF_CONFIGURATIONS = 15;
+#define NUMBER_OF_CONFIGURATIONS 24 //currently 1 per core
+#define NUMBER_OF_THREADS 12
 const static double box_length = 500;
 const static double sigma = 1.; //distance at which inter-particle potential is zero
 const static double epsilon = 1.; //well depth
@@ -47,18 +49,12 @@ double total_energy(Atom (&atoms) [NUMBER_OF_ATOMS])
   return energy;
 }
 
+std::uniform_real_distribution<double> dist(0., box_length);
+std::mt19937 rng;
 
 
-
-
-int main(){
-
-  // initialize RNG
-  std::uniform_real_distribution<double> dist(0., box_length);
-  std::mt19937 rng;
-  rng.seed(446464); //set RNG seed
-
-  // initialize atoms in box
+double run_program(){
+  rng.seed(1);
   auto start = Clock::now();
   Atom atoms [NUMBER_OF_ATOMS];
   for (int i=0; i < NUMBER_OF_ATOMS; i++){
@@ -77,5 +73,23 @@ int main(){
   auto duration_ms = std::chrono::duration_cast<milliseconds>(end-start);
   cout << "Calculation took " << duration_ms.count()<< "ms" << endl;
   cout << test_total_energy << endl;
+  return test_total_energy;
+}
+
+
+int main(){
+
+  auto start = Clock::now();
+  std::thread threads [NUMBER_OF_THREADS];
+
+  for(int i = 0; i < NUMBER_OF_THREADS; i++){
+    threads[i] = std::thread(run_program);
+  }
+  for(int i = 0; i < NUMBER_OF_THREADS; i++){
+    threads[i].join();
+  }
+  auto end = Clock::now();
+  auto duration_ms = std::chrono::duration_cast<milliseconds>(end-start);
+  cout << "Total of all calculations took " << duration_ms.count()<< "ms" << endl;
   return 0;
 }
