@@ -3,6 +3,10 @@
 #include <random>
 #include <chrono>
 #include <thread>
+
+//#ifndef MONTE_CARLO_H
+//#include "monte_carlo.h"
+//#endif
 //thistest
 using std::cout;
 using std::endl;
@@ -40,7 +44,7 @@ double total_energy(Atom (&atoms) [NUMBER_OF_ATOMS])
 {
   double energy = 0;
   for(int i=0; i < NUMBER_OF_ATOMS; i++){
-    for(int j = 0; j < NUMBER_OF_ATOMS; j++){
+    for(int j = i; j < NUMBER_OF_ATOMS; j++){
       if(i != j){
         energy += (LJ_energy(atoms[i], atoms[j]))/2;
       }
