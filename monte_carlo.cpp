@@ -67,7 +67,6 @@ bool Monte_carlo::try_move(double max_step) {
   if (atom_list[random_index].y < 0) atom_list[random_index].y = box_length - atom_list[random_index].y;
   atom_list[random_index].z += dist(rng);
   if (atom_list[random_index].z < 0) atom_list[random_index].z = box_length-atom_list[random_index].z;
-
   new_energy += energy_from_atom((size_t)random_index);
   std::cout << "new energy: " << new_energy << "\n";
 
