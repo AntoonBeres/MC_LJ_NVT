@@ -6,7 +6,7 @@
 
 #ifndef MONTE_CARLO_H
 #define MONTE_CARLO_H
-#endif
+
 
 #include <pybind11/pybind11.h>
 namespace py = pybind11;
@@ -57,3 +57,4 @@ PYBIND11_MODULE(example, m) {
         //.def("getName", &Pet::getName);
     py::class_<Atom>(m, "Atom");
 }
+#endif

@@ -1,6 +1,4 @@
-#ifndef MONTE_CARLO_H
 #include "monte_carlo.h"
-#endif
 #include <iostream>
 
 const static double boltzmann = 0.008134;
