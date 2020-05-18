@@ -4,6 +4,7 @@ import sys
 import os
 import glob
 import time
+import numpy as np
 
 comm = MPI.COMM_WORLD
 my_rank = comm.Get_rank()
@@ -28,7 +29,7 @@ if my_rank != 0:
             amount_of_accepts +=1
         else:
             amount_of_rejects += 1
-        #print("moves: ", amount_of_moves, "energy: ", mc.total_energy())
+
     t_stop = time.process_time()
     msg += "Total time ran: "
     msg += str(t_stop - t_start)
@@ -67,14 +68,4 @@ else:
 
     print(MC_LIB.gen_rng(5))
 
-
-#print("simulation finished")
-"""
-mc = MC_LIB.Monte_carlo(nr_of_atoms, box_len)
-amount_of_rejects = 0 #Amount of rejected moves in a row. Used to determine end of run
-while(amount_of_rejects <50):
-    if(mc.try_move(max_stepsize)):
-        amount_of_rejects = 0
-    else:
-        amount_of_rejects += 1
-"""
+    
