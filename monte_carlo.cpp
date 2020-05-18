@@ -49,6 +49,7 @@ double Monte_carlo::energy_from_atom(size_t list_index) {
 
 // Returns true if move is accepted, false if move is rejected
 bool Monte_carlo::try_move(double max_step) {
+  //std::cout << gen_rng(5);
   int random_index = rand() % nr_atoms;
   //std::cout << "random index: " << random_index << std::endl;
   std::uniform_real_distribution<double> accept_move_dist(0, 1);

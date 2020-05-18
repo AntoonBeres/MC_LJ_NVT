@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <chrono>
+#include "rng.h"
 
 #ifndef MONTE_CARLO_H
 #define MONTE_CARLO_H
@@ -49,12 +50,13 @@ private:
 };
 
 
-PYBIND11_MODULE(example, m) {
+PYBIND11_MODULE(MC_LIB, m) {
     py::class_<Monte_carlo>(m, "Monte_carlo")
         .def(py::init<int &, double&, int&>())
         .def("total_energy", &Monte_carlo::total_energy)
         .def("try_move", &Monte_carlo::try_move);
         //.def("getName", &Pet::getName);
     py::class_<Atom>(m, "Atom");
+    m.def("gen_rng", &gen_rng);
 }
 #endif

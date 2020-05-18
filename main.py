@@ -1,4 +1,4 @@
-import example
+import MC_LIB
 from mpi4py import MPI
 import sys
 import os
@@ -13,14 +13,16 @@ nr_of_atoms = 500
 box_len = 50.
 max_stepsize = 2.
 
+endpoint = 25 #Amount of rejects in a row before simulation is stopped
+
 if my_rank != 0:
     msg = ""
     seed = my_rank
-    mc = example.Monte_carlo(nr_of_atoms, box_len, seed)
+    mc = MC_LIB.Monte_carlo(nr_of_atoms, box_len, seed)
     amount_of_rejects = 0
     amount_of_accepts = 0
     t_start = time.process_time()
-    while(amount_of_rejects <1):
+    while(amount_of_rejects <endpoint):
         if(mc.try_move(max_stepsize)):
             amount_of_rejects = 0
             amount_of_accepts +=1
@@ -63,9 +65,12 @@ else:
     print("sim finished")
 
 
+    print(MC_LIB.gen_rng(5))
+
+
 #print("simulation finished")
 """
-mc = example.Monte_carlo(nr_of_atoms, box_len)
+mc = MC_LIB.Monte_carlo(nr_of_atoms, box_len)
 amount_of_rejects = 0 #Amount of rejected moves in a row. Used to determine end of run
 while(amount_of_rejects <50):
     if(mc.try_move(max_stepsize)):
