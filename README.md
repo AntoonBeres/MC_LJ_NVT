@@ -9,3 +9,5 @@ To recompile: $ make
 
 Modify Makefile and set "NPROCS" to amount of logical processors your machine has
 To run: $ make run
+
+Results are printed to "results.log"
