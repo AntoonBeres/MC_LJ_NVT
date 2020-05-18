@@ -4,6 +4,7 @@ OPTLEVEL=-O3
 NPROCS=12
 main: monte_carlo.o rng.o
 	c++ $(OPTLEVEL) $(CFLAGS) monte_carlo.o rng.o -o $(OUTPUTLIBNAME)`python3-config --extension-suffix`
+	rm *.o
 monte_carlo.o:
 	c++ $(CFLAGS) -c monte_carlo.cpp
 rng.o:
