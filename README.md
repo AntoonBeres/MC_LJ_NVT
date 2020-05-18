@@ -2,7 +2,7 @@
 Monte carlo simulation of atoms interacting with Lennard Jones potentials
 
 Dependencies:
-Pybind11, c++11, python3.7+
+Pybind11, C++11, Python3.7+
 
 Instructions:
 To recompile: $ make
