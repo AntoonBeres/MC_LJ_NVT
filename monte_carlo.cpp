@@ -76,6 +76,8 @@ bool Monte_carlo::try_move(double max_step) {
 
   if(new_energy <= old_energy) {
     list_cache_set = false;
+    energy_cache = new_energy;
+    energy_cache_set = true;
     return true;
   }
   else {
@@ -83,10 +85,14 @@ bool Monte_carlo::try_move(double max_step) {
     //std::cout << accept_probability << "\n";
     if (accept_move_dist(rng) <= accept_probability) {
       list_cache_set = false;
+      energy_cache = new_energy;
+      energy_cache_set = true;
       return true;
     }
     else {
       atom_list = cache_list;
+      energy_cache = old_energy;
+      energy_cache_set = true;
       return false;
     }
   }
