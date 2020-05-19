@@ -92,12 +92,10 @@ bool Monte_carlo::try_move(double max_step) {
   }
 }
 
-double distance (const Atom& atom1, const Atom& atom2)
-{
+double distance (const Atom& atom1, const Atom& atom2){
   return sqrt(pow((atom1.x - atom2.x),2) + pow((atom1.y - atom2.y),2) + pow((atom1.z * atom2.z),2));
 }
 
-double LJ_energy (const Atom& atom1, const Atom& atom2)
-{
+double LJ_energy (const Atom& atom1, const Atom& atom2){
   return 4*epsilon*(pow((sigma/distance(atom1,atom2)),12) - pow((sigma/distance(atom1,atom2)),6));
 }

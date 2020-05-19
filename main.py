@@ -14,7 +14,7 @@ nr_of_atoms = 500
 box_len = 50.
 max_stepsize = 2.
 
-endpoint = 25 #Amount of rejects in a row before simulation is stopped
+endpoint = 50 #Amount of rejects in a row before simulation is stopped
 
 if my_rank != 0:
     msg = ""
@@ -23,7 +23,7 @@ if my_rank != 0:
     amount_of_rejects = 0
     amount_of_accepts = 0
     t_start = time.process_time()
-    while(amount_of_rejects <endpoint):
+    while((amount_of_accepts+amount_of_rejects) <endpoint):
         if(mc.try_move(max_stepsize)):
             amount_of_rejects = 0
             amount_of_accepts +=1
@@ -50,12 +50,24 @@ if my_rank != 0:
     msg += "----------------------------------------- \n\n"
     comm.send(msg, dest=0)
 else:
+
+    #comparison of numpy rand vs own rand:
+    print("10 random doubles between 0 and 1 generated via NUMPY: ")
+    for i in range(10):
+        print(np.random.rand())
+    print()
+    print("10 random doubles between 0 and 1 generated via OWN RNG: ")
+    for seed in range(1,11):
+        print(MC_LIB.gen_rng(seed))
+    ###################################################################
+
+    #start monte carlo simulation
     for procid in range(1,p):
         message = comm.recv(source = procid)
         strproc = str(procid)
         f = open(strproc + ".tmp", "w+")
         f.write("PROCESS " + strproc + ": \n" + message)
-        print("Simulation of proc: ", procid, "ended: ", message)
+        #print("Simulation of proc: ", procid, "ended: ", message)
         f.close()
     read_files = glob.glob("*.tmp")
     with open("results.log", "wb+") as outfile:
@@ -63,9 +75,5 @@ else:
             with open("%d.tmp" % i, "rb") as infile:
                 outfile.write(infile.read())
             os.remove("%d.tmp" % i)
-    print("sim finished")
-
-
-    print(MC_LIB.gen_rng(5))
-
-    
+    print("Sim finished")
+    print("Results printed to results.log")
