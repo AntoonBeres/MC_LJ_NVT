@@ -10,13 +10,14 @@ comm = MPI.COMM_WORLD
 my_rank = comm.Get_rank()
 p = comm.Get_size()
 
-nr_of_atoms = 500
-box_len = 50.
+#simulation parameters
+nr_of_atoms = 100
+box_len = 125.
 max_stepsize = 2.
 
-endpoint = 20 #Amount of rejects in a row before simulation is stopped
+endpoint = 250000 #Amount of attempted steps before simulation ends
 
-
+#Function that returs standard deviation of list of values
 def stdev(inputlist):
     if len(inputlist) < 2:
         raise ValueError('standard deviation requires at least two data points')
@@ -33,9 +34,9 @@ if my_rank != 0:
     amount_of_rejects = 0
     amount_of_accepts = 0
     t_start = time.process_time()
-    while(amount_of_rejects <endpoint):
+    while((amount_of_rejects+amount_of_accepts)<endpoint):
         if(mc.try_move(max_stepsize)):
-            amount_of_rejects = 0
+            #amount_of_rejects = 0
             amount_of_accepts +=1
         else:
             amount_of_rejects += 1
@@ -58,8 +59,8 @@ if my_rank != 0:
     msg += str(mc.total_energy())
     msg += "\n"
     msg += "----------------------------------------- \n\n"
-    comm.send(msg, dest=0, tag=1)
-    comm.send(mc.total_energy(), dest=0, tag=2)
+    comm.send(msg, dest=0, tag=1)   #send msg to print to log to main thread
+    comm.send(mc.total_energy(), dest=0, tag=2) #send energy to add to energy_list
 else:
     energies = []
     #comparison of numpy rand vs own rand:

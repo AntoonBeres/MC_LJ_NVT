@@ -1,0 +1,92 @@
+PROCESS 1: 
+Total time ran: 70.182918367 seconds
+Amount of attempted moves made in simulation: 250000
+Amount of accepted moves: 119822
+Acceptance rate: 0.479288
+final energy: -414.8043184362981
+----------------------------------------- 
+
+PROCESS 2: 
+Total time ran: 70.444585633 seconds
+Amount of attempted moves made in simulation: 250000
+Amount of accepted moves: 112816
+Acceptance rate: 0.451264
+final energy: -424.1342076687787
+----------------------------------------- 
+
+PROCESS 3: 
+Total time ran: 70.391743901 seconds
+Amount of attempted moves made in simulation: 250000
+Amount of accepted moves: 92919
+Acceptance rate: 0.371676
+final energy: -514.3400425665338
+----------------------------------------- 
+
+PROCESS 4: 
+Total time ran: 70.39096835800001 seconds
+Amount of attempted moves made in simulation: 250000
+Amount of accepted moves: 113569
+Acceptance rate: 0.454276
+final energy: -415.4570619378791
+----------------------------------------- 
+
+PROCESS 5: 
+Total time ran: 70.586365055 seconds
+Amount of attempted moves made in simulation: 250000
+Amount of accepted moves: 130650
+Acceptance rate: 0.5226
+final energy: -402.0864672227039
+----------------------------------------- 
+
+PROCESS 6: 
+Total time ran: 70.208987417 seconds
+Amount of attempted moves made in simulation: 250000
+Amount of accepted moves: 108789
+Acceptance rate: 0.435156
+final energy: -449.5064272558764
+----------------------------------------- 
+
+PROCESS 7: 
+Total time ran: 70.370793367 seconds
+Amount of attempted moves made in simulation: 250000
+Amount of accepted moves: 146394
+Acceptance rate: 0.585576
+final energy: -299.3782461641592
+----------------------------------------- 
+
+PROCESS 8: 
+Total time ran: 70.56341744 seconds
+Amount of attempted moves made in simulation: 250000
+Amount of accepted moves: 89089
+Acceptance rate: 0.356356
+final energy: -530.0098343093474
+----------------------------------------- 
+
+PROCESS 9: 
+Total time ran: 69.881803772 seconds
+Amount of attempted moves made in simulation: 250000
+Amount of accepted moves: 125440
+Acceptance rate: 0.50176
+final energy: -428.1260796436454
+----------------------------------------- 
+
+PROCESS 10: 
+Total time ran: 69.709410319 seconds
+Amount of attempted moves made in simulation: 250000
+Amount of accepted moves: 120264
+Acceptance rate: 0.481056
+final energy: -384.5575655208234
+----------------------------------------- 
+
+PROCESS 11: 
+Total time ran: 70.194829503 seconds
+Amount of attempted moves made in simulation: 250000
+Amount of accepted moves: 107418
+Acceptance rate: 0.429672
+final energy: -441.8268203431536
+----------------------------------------- 
+
+
+Average energy: -427.657006 
+Standard deviation of sample: 61.613104 
+Lowest energy from set: -530.009834
