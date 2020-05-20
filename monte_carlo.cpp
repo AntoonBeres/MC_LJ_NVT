@@ -25,7 +25,7 @@ double Monte_carlo::total_energy() {
 
   double energy = 0;
   for(size_t i=0; i < atom_list.size(); i++){
-    for(size_t j = i+1; j < atom_list.size(); j++){
+    for(size_t j = i+1; j < atom_list.size(); j++){ //so that no atom-atom pair is calculated double
       if(i != j){
         energy += LJ_energy(atom_list[i], atom_list[j]);
       }
@@ -49,18 +49,19 @@ double Monte_carlo::energy_from_atom(size_t list_index) {
 
 // Returns true if move is accepted, false if move is rejected
 bool Monte_carlo::try_move(double max_step) {
-  //std::cout << gen_rng(5);
+
   int random_index = rand() % nr_atoms;
-  //std::cout << "random index: " << random_index << std::endl;
   std::uniform_real_distribution<double> accept_move_dist(0, 1);
+
   if (!list_cache_set){
   cache_list = atom_list;
   list_cache_set=true;
   }
+  
   std::mt19937 rng2;
   double old_energy = total_energy();
   double new_energy = old_energy - energy_from_atom((size_t)random_index);
-  //std::cout << "old energy: " << old_energy << "\n";
+
   std::uniform_real_distribution<double> dist(-(max_step/2), (max_step/2));
   energy_cache_set = false;
 
@@ -72,7 +73,6 @@ bool Monte_carlo::try_move(double max_step) {
   if (atom_list[random_index].z < 0) atom_list[random_index].z = box_length-atom_list[random_index].z;
 
   new_energy += energy_from_atom((size_t)random_index);
-  //std::cout << "new energy: " << new_energy << "\n";
 
   if(new_energy <= old_energy) {
     list_cache_set = false;
@@ -81,8 +81,8 @@ bool Monte_carlo::try_move(double max_step) {
     return true;
   }
   else {
-    double accept_probability = exp((-new_energy + old_energy)/(boltzmann));
-    //std::cout << accept_probability << "\n";
+    double accept_probability = exp((-new_energy + old_energy)/(boltzmann)); //acceptance probability
+
     if (accept_move_dist(rng) <= accept_probability) {
       list_cache_set = false;
       energy_cache = new_energy;
