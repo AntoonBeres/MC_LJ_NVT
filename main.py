@@ -36,7 +36,6 @@ if my_rank != 0:
     t_start = time.process_time()
     while((amount_of_rejects+amount_of_accepts)<endpoint):
         if(mc.try_move(max_stepsize)):
-            #amount_of_rejects = 0
             amount_of_accepts +=1
         else:
             amount_of_rejects += 1
@@ -80,7 +79,6 @@ else:
         strproc = str(procid)
         f = open(strproc + ".tmp", "w+")
         f.write("PROCESS " + strproc + ": \n" + message)
-        #print("Simulation of proc: ", procid, "ended: ", message)
         f.close()
     read_files = glob.glob("*.tmp")
     with open("results.log", "wb+") as outfile:
